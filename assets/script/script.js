@@ -61,9 +61,7 @@ function displayQuote() {
   let quotesDecode = JSON.parse(quotesInStorage);
 
   if (quotesDecode) {
-    console.log(quotesDecode);
-    let id = 0;
-    for (const quote of quotesDecode) {
+    for (let i = 0; i < quotesArray.length; i++) {
       let card = document.createElement("li");
       card.classList.add("card");
       card.style.width = "18rem";
@@ -75,17 +73,17 @@ function displayQuote() {
 
       let title = document.createElement("h2");
       title.classList.add("card-title");
-      title.innerHTML = quote.text;
+      title.innerHTML = quotesArray[i].text;
       cardBody.insertAdjacentElement("beforeend", title);
 
       let author = document.createElement("p");
       author.classList.add("card-text");
       author.classList.add("fst-italic");
-      author.innerHTML = quote.author;
+      author.innerHTML = quotesArray[i].author;
       cardBody.insertAdjacentElement("beforeend", author);
 
       let type = document.createElement("p");
-      type.innerHTML = quote.type;
+      type.innerHTML = quotesArray[i].type;
       cardBody.insertAdjacentElement("beforeend", type);
 
       let deleteBtn = document.createElement("button");
@@ -93,11 +91,12 @@ function displayQuote() {
       deleteBtn.classList.add("btn-danger");
       deleteBtn.innerHTML = "Supprimer";
       deleteBtn.addEventListener("click", () => {
-        console.log("delete");
         card.remove();
+        quotesArray.splice(quotesArray[i], 1);
+        let quotesEncode = JSON.stringify(quotesArray);
+        localStorage.setItem("quotes", quotesEncode);
       });
       cardBody.insertAdjacentElement("beforeend", deleteBtn);
-      id++;
     }
   }
 }
