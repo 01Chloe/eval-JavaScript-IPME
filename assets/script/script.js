@@ -62,20 +62,42 @@ function displayQuote() {
 
   if (quotesDecode) {
     console.log(quotesDecode);
+    let id = 0;
     for (const quote of quotesDecode) {
-      quoteList.insertAdjacentHTML(
-        "beforeend",
-        `
-            <li class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h2 class="card-title">${quote.text}</h2>
-                    <p class="card-text fst-italic">${quote.author}</p>
-                    <p>${quote.type}</p>
-                    <button class="btn btn-danger">Supprimer</button>
-                </div>
-            </li>
-        `
-      );
+      let card = document.createElement("li");
+      card.classList.add("card");
+      card.style.width = "18rem";
+      quoteList.insertAdjacentElement("beforeend", card);
+
+      let cardBody = document.createElement("div");
+      cardBody.classList.add("card-body");
+      card.insertAdjacentElement("beforeend", cardBody);
+
+      let title = document.createElement("h2");
+      title.classList.add("card-title");
+      title.innerHTML = quote.text;
+      cardBody.insertAdjacentElement("beforeend", title);
+
+      let author = document.createElement("p");
+      author.classList.add("card-text");
+      author.classList.add("fst-italic");
+      author.innerHTML = quote.author;
+      cardBody.insertAdjacentElement("beforeend", author);
+
+      let type = document.createElement("p");
+      type.innerHTML = quote.type;
+      cardBody.insertAdjacentElement("beforeend", type);
+
+      let deleteBtn = document.createElement("button");
+      deleteBtn.classList.add("btn");
+      deleteBtn.classList.add("btn-danger");
+      deleteBtn.innerHTML = "Supprimer";
+      deleteBtn.addEventListener("click", () => {
+        console.log("delete");
+        card.remove();
+      });
+      cardBody.insertAdjacentElement("beforeend", deleteBtn);
+      id++;
     }
   }
 }
