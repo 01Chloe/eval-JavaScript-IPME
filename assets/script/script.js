@@ -117,7 +117,7 @@ function displayDailyQuote() {
     quotesDailyTittle.innerHTML = "Ma citation du jour";
     dailyQuote.insertAdjacentElement("beforebegin", quotesDailyTittle);
 
-    let card = document.createElement("li");
+    let card = document.createElement("div");
     card.classList.add("card");
     card.style.width = "18rem";
     dailyQuote.insertAdjacentElement("beforeend", card);
@@ -142,5 +142,21 @@ function displayDailyQuote() {
     cardBody.insertAdjacentElement("beforeend", type);
   } else {
     dailyQuote.innerHTML = "";
+  }
+}
+
+const searchForm = document.querySelector("#search-form");
+const searchInput = document.querySelector("#search");
+
+searchForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  getQuotes();
+});
+
+function getQuotes() {
+  for (let i = 0; i < quotesArray.length; i++) {
+    if (quotesArray[i].text.includes(searchInput.value)) {
+      console.log(quotesArray[i]);
+    }
   }
 }
